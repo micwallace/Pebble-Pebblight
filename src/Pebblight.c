@@ -5,6 +5,7 @@ static TextLayer *text_layer;
 
 static BitmapLayer *image_layer;
 static GBitmap *image;
+int retryCount = 0;
 
 //Receiving messages from the phone
 //http://developer.getpebble.com/2/guides/app-phone-communication.html
@@ -20,11 +21,21 @@ void out_sent_handler(DictionaryIterator *sent, void *context) {
   // outgoing message was delivered
 }
 
+static void send_torch_command(){
+  DictionaryIterator *iter;
+  app_message_outbox_begin(&iter);
+
+  //Tuplet value = TupletInteger(1, 42);
+  Tuplet value = TupletCString(1, "torch");
+
+  dict_write_tuplet(iter, &value);
+
+  app_message_outbox_send();
+}
 
 void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, void *context) {
   // outgoing message failed
 }
-
 
 void in_received_handler(DictionaryIterator *received, void *context) {
   // incoming message received
@@ -45,25 +56,17 @@ void in_received_handler(DictionaryIterator *received, void *context) {
 
 }
 
- void in_dropped_handler(AppMessageResult reason, void *context) {
-   // incoming message dropped
- }
+static void in_dropped_handler(AppMessageResult reason, void *context) {
+  // incoming message dropped
+}
 ////Enabling AppMessage in the watchapp END
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   //text_layer_set_text(text_layer, "Waiting iPhone...");
 
-    //Sending messages to the phone
+  //Sending messages to the phone
   //http://developer.getpebble.com/2/guides/app-phone-communication.html
-  DictionaryIterator *iter;
-  app_message_outbox_begin(&iter);
-
-  //Tuplet value = TupletInteger(1, 42);
-  Tuplet value = TupletCString(1, "torch");
-
-  dict_write_tuplet(iter, &value);
-
-  app_message_outbox_send();
+  send_torch_command();
   //Sending messages to the phone END
 }
 
@@ -83,7 +86,7 @@ static void click_config_provider(void *context) {
 
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
-  GRect bounds = layer_get_bounds(window_layer);
+  //GRect bounds = layer_get_bounds(window_layer);
 
   // This needs to be deinited on app exit which is when the event loop ends
   image = gbitmap_create_with_resource(RESOURCE_ID_IMAGEN_TWITTER);

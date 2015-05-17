@@ -1,23 +1,34 @@
 {
-  "uuid": "b9152c98-067a-44e2-8ad2-9fb548d6c480",
-  "shortName": "Pebblight",
-  "longName": "Pebblight",
-  "companyName": "MakeAwesomeHappen",
-  "versionCode": 1,
-  "versionLabel": "1.0.0",
-  "watchapp": {
-    "watchface": false
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "resources": {
-    "media": [
-      {
-        "type": "png",
-        "name": "IMAGEN_TWITTER",
-        "file": "images/pebblelight.png"
-      }
-    ]
-  }
+    "appKeys": {
+        "dummy": 0
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "MakeAwesomeHappen",
+    "longName": "Pebblight",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/pebblight_menu.png",
+                "menuIcon": true,
+                "name": "PEBBLIGHT_MENU",
+                "type": "png"
+            },
+            {
+                "file": "images/pebblelight.png",
+                "name": "IMAGEN_TWITTER",
+                "type": "png"
+            }
+        ]
+    },
+    "sdkVersion": "2",
+    "shortName": "Pebblight",
+    "uuid": "b9152c98-067a-44e2-8ad2-9fb548d6c480",
+    "versionCode": 1,
+    "versionLabel": "1.1",
+    "watchapp": {
+        "watchface": false
+    }
 }
